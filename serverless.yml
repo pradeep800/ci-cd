@@ -1,0 +1,25 @@
+service: hello-serverless
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: dev
+  memorySize: 256
+  timeout: 10
+plugins:
+  - serverless-offline
+custom:
+  serverless-offline:
+    httpPort: 3008
+functions:
+  hello:
+    handler: handler.hello
+    memorySize: 128
+    timeout: 10
+    events:
+      - http:
+          path: math/hello
+          method: GET
+          cors: true
